@@ -41,13 +41,28 @@ public class SandLab
   private void locationClicked(int row, int col, int tool)
   {
     //2. Assign the values associated with the parameters to the grid
-   
+    grid[row][col] = tool;
   }
 
   //copies each element of grid into the display
   public void updateDisplay()
   {
       //Step 3
+	  
+	  for (int row = 0; row < grid.length; row++)
+	  {
+		  for (int col = 0; col < grid[0].length; col++)
+		  {
+			  if (grid[row][col] == EMPTY)
+			  {
+				  display.setColor(row,  col,  Color.BLACK);
+			  }
+			  else if (grid[row][col] == METAL)
+			  {
+				  display.setColor(row, col, Color.GRAY);
+			  }
+		  }
+	  }
    //Hint - use a nested for loop
     
   }
