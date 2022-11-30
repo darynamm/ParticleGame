@@ -10,6 +10,7 @@ public class SandLab
   //add constants for particle types here
   public static final int EMPTY = 0;
   public static final int METAL = 1;
+  public static final int SAND = 2;
   
   //do not add any more fields below
   private int[][] grid;
@@ -26,11 +27,11 @@ public class SandLab
     String[] names;
     // Change this value to add more buttons
     //Step 4,6
-    names = new String[2];
+    names = new String[3];
     // Each value needs a name for the button
     names[EMPTY] = "Empty";
     names[METAL] = "Metal";
-    
+    names[SAND] = "Anakin hates me";
     //1. Add code to initialize the data member grid with same dimensions
     this.grid = new int [numRows][numCols];
     
@@ -61,6 +62,10 @@ public class SandLab
 			  {
 				  display.setColor(row, col, Color.GRAY);
 			  }
+			  else if (grid[row][col] == SAND)
+			  {
+				  display.setColor(row, col, Color.YELLOW);
+			  }
 		  }
 	  }
    //Hint - use a nested for loop
@@ -75,6 +80,21 @@ public class SandLab
     //Remember, you need to access both row and column to specify a spot in the array
     //The scalar refers to how big the value could be
     //int someRandom = (int) (Math.random() * scalar)
+	  
+	  int randomRow = (int) (Math.random() * grid.length);
+	  int randomCol = (int) (Math.random() * grid[0].length);
+	  
+	  int currentParticle = grid [randomRow][randomCol];
+	if (currentParticle == SAND)
+	{
+		if (randomRow + 1 < grid.length && grid[randomRow + 1][randomCol] == EMPTY)
+		{
+			int temp = grid[randomRow + 1][randomCol];
+			grid [randomRow + 1][randomCol] = currentParticle;
+			grid [randomRow][randomCol] = temp;
+		}
+	}
+	  
     //remember that you need to watch for the edges of the array
     
     
