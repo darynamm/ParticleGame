@@ -13,6 +13,7 @@ public class SandLab
   public static final int SAND = 2;
   public static final int WATER = 3;
   public static final int POISON = 4;
+  public static final int EARTH = 5;
   
   //do not add any more fields below
   private int[][] grid;
@@ -29,13 +30,14 @@ public class SandLab
     String[] names;
     // Change this value to add more buttons
     //Step 4,6
-    names = new String[5];
+    names = new String[6];
     // Each value needs a name for the button
     names[EMPTY] = "Empty";
     names[METAL] = "Metal";
     names[SAND] = "Anakin hates me";
     names[WATER] = "h2o";
     names[POISON] = "Poison!";
+    names[EARTH] = "Earth";
     //1. Add code to initialize the data member grid with same dimensions
     this.grid = new int [numRows][numCols];
     display = new SandDisplay("falling Water", numRows, numCols, names);
@@ -78,6 +80,11 @@ public class SandLab
 			  {
 				  Color poisonColor = new Color(218,112,214);
 				  display.setColor(row,  col, poisonColor);
+			  }
+			  else if (grid[row][col] == EARTH)
+			  {
+				  Color earthColor = new Color(99, 81, 71);
+				  display.setColor(row,  col, earthColor);
 			  }
 		  }
 	  }
@@ -139,6 +146,10 @@ public class SandLab
 		handleWater(randomRow, randomCol);
 		
 	}
+	else if (currentParticle == POISON)
+	{
+		poisonBehavior(randomRow, randomCol);
+	}
 	  
     //remember that you need to watch for the edges of the array
     
@@ -181,8 +192,25 @@ public class SandLab
 		}
   }
   
-  
-  private void poisonBehavior(int currentRow, int currentCol)
+  private void poisonBehavior (int currentRow, int currentCol)
+  {
+	  if (currentRow + 1 < grid[0].length)
+	  {
+		  if (grid [currentRow][currentCol + 1] == EMPTY)
+		  {
+			  swapParticles(currentRow, currentCol, currentRow - 1, currentCol);
+		  }
+		  if (grid[currentRow][currentCol + 1] == WATER)
+		  {
+			  if (grid[currentRow + 1][currentCol] == EMPTY ||grid[currentRow + 1][currentCol] == WATER)
+			  {
+				  swapParticles(currentRow, currentCol, currentRow - 1, currentCol+1);
+			  }
+			  
+		  }
+	  }
+  }
+  private void earthnBehavior(int currentRow, int currentCol)
   {
 	  if (currentRow - 1 >= 0)
 	  {
@@ -202,6 +230,7 @@ public class SandLab
 		  }
 	  }
   }
+ 
   //do not modify this method!
   public void run()
   {
