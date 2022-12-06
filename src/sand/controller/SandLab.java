@@ -14,6 +14,7 @@ public class SandLab
   public static final int WATER = 3;
   public static final int POISON = 4;
   public static final int EARTH = 5;
+  public static final int CONFETTI = 6;
   
   //do not add any more fields below
   private int[][] grid;
@@ -30,7 +31,7 @@ public class SandLab
     String[] names;
     // Change this value to add more buttons
     //Step 4,6
-    names = new String[6];
+    names = new String[7];
     // Each value needs a name for the button
     names[EMPTY] = "Empty";
     names[METAL] = "Metal";
@@ -38,6 +39,7 @@ public class SandLab
     names[WATER] = "h2o";
     names[POISON] = "Poison!";
     names[EARTH] = "Earth";
+    names[CONFETTI] = "Confetti";
     //1. Add code to initialize the data member grid with same dimensions
     this.grid = new int [numRows][numCols];
     display = new SandDisplay("falling Water", numRows, numCols, names);
@@ -85,6 +87,11 @@ public class SandLab
 			  {
 				  Color earthColor = new Color(99, 81, 71);
 				  display.setColor(row,  col, earthColor);
+			  }
+			  else if (grid[row][col] == CONFETTI)
+			  {
+				  Color confettiColor = new Color (255,182,193);
+				  display.setColor(row, col, confettiColor);
 			  }
 		  }
 	  }
