@@ -150,7 +150,10 @@ public class SandLab
 	{
 		poisonBehavior(randomRow, randomCol);
 	}
-	  
+	else if (currentParticle == EARTH)
+	{
+		earthBehavior(randomRow, randomCol);
+	}
     //remember that you need to watch for the edges of the array
     
     
@@ -238,15 +241,51 @@ public class SandLab
 			}
 	  }
   }
-  private void earthnBehavior(int currentRow, int currentCol)
+  private void earthBehavior(int currentRow, int currentCol)
   {
-	  if (currentRow - 1 >= 0)
+	  if (currentRow + 1 <= 0)
 	  {
 		  if (grid[currentRow - 1][currentCol] == EMPTY || grid[currentRow - 1][currentCol] == WATER)
 		  {
 			  swapParticles(currentRow, currentCol, currentRow - 1, currentCol);
 		  }
 	  }
+	  else if (currentCol - 1 >= 0)
+	  {
+		  int earthDecision = (int) (Math.random()* 3);
+			
+			if (earthDecision == 0)
+			{
+				if (currentRow - 1 < grid.length)
+				{
+					if (grid[currentRow + 1][currentCol] == EMPTY)
+					{
+						swapParticles(currentRow, currentCol, currentRow + 1, currentCol);
+					}
+				}
+			}
+			else if (earthDecision == 1)
+			{
+				if (currentCol - 1 >= 0)
+				{
+					if (grid [currentRow][currentCol + 1] == EMPTY
+							) {
+					swapParticles(currentRow, currentCol, currentRow, currentCol - 1);
+					}
+				}
+			}
+			else
+			{
+				if (currentCol + 1 < grid[0].length)
+				{
+					if (grid [currentRow][currentCol + 1] == EMPTY)
+					{
+						swapParticles(currentRow, currentCol, currentRow, currentCol + 1);
+					}
+				}
+			}
+	  }
+	  
   }
   private void handleSand(int randomRow, int randomCol)
   {
