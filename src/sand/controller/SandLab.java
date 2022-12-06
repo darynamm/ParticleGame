@@ -194,20 +194,48 @@ public class SandLab
   
   private void poisonBehavior (int currentRow, int currentCol)
   {
-	  if (currentRow + 1 < grid[0].length)
+	  if (currentRow - 1 >= 0)
 	  {
-		  if (grid [currentRow][currentCol + 1] == EMPTY)
+		  if (grid [currentRow - 1][currentCol ] == EMPTY)
 		  {
 			  swapParticles(currentRow, currentCol, currentRow - 1, currentCol);
 		  }
-		  if (grid[currentRow][currentCol + 1] == WATER)
-		  {
-			  if (grid[currentRow + 1][currentCol] == EMPTY ||grid[currentRow + 1][currentCol] == WATER)
-			  {
-				  swapParticles(currentRow, currentCol, currentRow - 1, currentCol+1);
-			  }
-			  
-		  }
+		  
+	  }
+	  else if (currentCol - 1 >= 0)
+	  {
+		  int poisonDecision = (int) (Math.random()* 3);
+			
+			if (poisonDecision == 0)
+			{
+				if (currentRow + 1 < grid.length)
+				{
+					if (grid[currentRow + 1][currentCol] == EMPTY)
+					{
+						swapParticles(currentRow, currentCol, currentRow + 1, currentCol);
+					}
+				}
+			}
+			else if (poisonDecision == 1)
+			{
+				if (currentCol - 1 >= 0)
+				{
+					if (grid [currentRow][currentCol - 1] == EMPTY
+							) {
+					swapParticles(currentRow, currentCol, currentRow, currentCol - 1);
+					}
+				}
+			}
+			else
+			{
+				if (currentCol + 1 < grid[0].length)
+				{
+					if (grid [currentRow][currentCol + 1] == EMPTY)
+					{
+						swapParticles(currentRow, currentCol, currentRow, currentCol + 1);
+					}
+				}
+			}
 	  }
   }
   private void earthnBehavior(int currentRow, int currentCol)
