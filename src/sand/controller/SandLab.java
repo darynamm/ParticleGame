@@ -16,6 +16,7 @@ public class SandLab
   public static final int EARTH = 5;
   public static final int CONFETTI = 6;
   
+  
   //do not add any more fields below
   private int[][] grid;
   private SandDisplay display;
@@ -40,6 +41,7 @@ public class SandLab
     names[POISON] = "Poison!";
     names[EARTH] = "Earth";
     names[CONFETTI] = "Confetti";
+    
     //1. Add code to initialize the data member grid with same dimensions
     this.grid = new int [numRows][numCols];
     display = new SandDisplay("falling Water", numRows, numCols, names);
@@ -161,10 +163,43 @@ public class SandLab
 	{
 		earthBehavior(randomRow, randomCol);
 	}
+	else if (currentParticle == CONFETTI)
+	{
+		confettiBehavior(randomRow, randomCol);
+	}
     //remember that you need to watch for the edges of the array
     
     
   }
+  private void confettiBehavior(int randomRow, int randomCol)
+  
+  {
+	  if (grid[randomRow][randomCol-1] == EMPTY || grid[randomRow - 1][randomCol-1] == WATER)
+	  {
+		  if (randomCol + 1 < grid[0].length)
+			{
+				if (grid [randomRow][randomCol + 1] == EMPTY)
+				{
+					swapParticles(randomRow, randomCol, randomRow + 1, randomCol + 1);
+				}
+			}
+	  }
+	  else if (grid[randomRow][randomCol-1] == POISON )
+	  {
+		  
+	  }
+	  else
+	  {
+		  if (randomCol + 1 < grid[0].length)
+			{
+				if (grid [randomRow][randomCol + 1] == EMPTY)
+				{
+					swapParticles(randomRow, randomCol, randomRow, randomCol - 1);
+				}
+			}
+	  }
+  }
+  
   
   private void handleWater(int randomRow, int randomCol)
   {
@@ -263,31 +298,31 @@ public class SandLab
 			
 			if (earthDecision == 0)
 			{
-				if (currentRow - 1 < grid.length)
+				if (currentRow + 1 < grid.length && currentCol - 1 >= 0)
 				{
-					if (grid[currentRow + 1][currentCol] == EMPTY)
+					if (grid[currentRow + 1][currentCol - 1] == EMPTY)
 					{
-						swapParticles(currentRow, currentCol, currentRow + 1, currentCol);
+						swapParticles(currentRow, currentCol, currentRow+1, currentCol - 1);
 					}
 				}
 			}
 			else if (earthDecision == 1)
 			{
-				if (currentCol - 1 >= 0)
+				if (currentCol - 1 >= 0 && currentRow + 1 < grid.length)
 				{
-					if (grid [currentRow][currentCol + 1] == EMPTY
+					if (grid [currentRow + 1][currentCol - 1] == EMPTY
 							) {
-					swapParticles(currentRow, currentCol, currentRow, currentCol - 1);
+					swapParticles(currentRow, currentCol, currentRow + 1, currentCol - 1);
 					}
 				}
 			}
 			else
 			{
-				if (currentCol + 1 < grid[0].length)
+				if (currentCol + 1 < grid[0].length && currentRow + 1 < grid.length)
 				{
 					if (grid [currentRow][currentCol + 1] == EMPTY)
 					{
-						swapParticles(currentRow, currentCol, currentRow, currentCol + 1);
+						swapParticles(currentRow, currentCol, currentRow + 1, currentCol + 1);
 					}
 				}
 			}
